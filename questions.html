@@ -15,10 +15,42 @@
 <a href="photos.html">photos</a>
 </nav>
 
-<form action="https://formspree.io/f/xpqglynv" method="POST" class="ask-form">
+<form id="ask-form" action="https://formspree.io/f/xpqglynv" method="POST" class="ask-form">
   <textarea name="question" placeholder="ask a question..." required></textarea>
   <button type="submit">submit</button>
+  <p id="form-status" style="display: none; margin-top: 10px;"></p>
 </form>
+
+<script>
+  var form = document.getElementById("ask-form");
+  var statusText = document.getElementById("form-status");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault(); // This stops the page from going to Formspree
+
+    var data = new FormData(event.target);
+    
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        statusText.innerHTML = "thanks for asking!";
+        statusText.style.display = "block";
+        form.reset(); // Clears the text box
+      } else {
+        statusText.innerHTML = "oops! there was a problem.";
+        statusText.style.display = "block";
+      }
+    }).catch(error => {
+      statusText.innerHTML = "oops! there was a problem.";
+      statusText.style.display = "block";
+    });
+  });
+</script>
 
 <hr>
 
