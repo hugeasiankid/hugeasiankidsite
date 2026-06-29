@@ -1,0 +1,74 @@
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 19px;
+  text-align: center;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+a:hover {
+  opacity: 0.6;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+nav {
+  margin-bottom: 30px;
+}
+
+nav a {
+  margin: 0 8px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ffffff;
+  max-width: 480px;
+  margin: 25px auto;
+}
+
+.entries {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+details {
+  margin-bottom: 18px;
+}
+
+summary {
+  cursor: pointer;
+  text-align: left;
+}
+
+summary::marker {
+  color: #ffffff;
+}
+
+details p {
+  margin: 8px 0 0 0;
+  white-space: pre-wrap;
+}
+
+details img {
+  max-width: 100%;
+  margin-top: 8px;
+  display: block;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 15px;
+}
