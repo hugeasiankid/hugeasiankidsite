@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>hugeasiankid - music</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>hugeasiankid</h1>
+<p>
+<a href="notes">notes</a> &nbsp;&nbsp;
+<a href="questions">questions</a> &nbsp;&nbsp;
+<a href="photos">photos</a> &nbsp;&nbsp;
+<a href="music">music</a>
+</p>
+<hr>
+<div class="now-playing">
+  
+  <div id="dynamic-album" data-search="Tyler the Creator Igor">
+    <span style="color: #555555; font-size: 14px;">loading album...</span>
+  </div>
+  
+  <span class="caption">listenin</span>
+</div>
+<a href="https://www.youtube.com/watch?v=oHg5SJYRHA0" target="_blank" class="easter-egg">click me!</a>
+<footer>
+hugeasiankid.com
+</footer>
+<script>
+  // --- THE SMART ROBOT (Music Fetcher) ---
+  const albumContainer = document.getElementById("dynamic-album");
+  const searchQuery = albumContainer.getAttribute("data-search");
+  fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(searchQuery)}&entity=album&limit=1`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.results.length > 0) {
+        const album = data.results[0];
+        
+        // Upgrades the tiny default image to a high-resolution one
+        const highResCover = album.artworkUrl100.replace('100x100bb', '1000x1000bb');
+        const musicLink = album.collectionViewUrl;
+        albumContainer.innerHTML = `
+          <a href="${musicLink}" target="_blank">
+            <img src="${highResCover}" alt="album cover">
+          </a>
+        `;
+      } else {
+        albumContainer.innerHTML = `<span style="color: #ff5555;">album not found!</span>`;
+      }
+    });
+  // --- DESKTOP: Listen for the 'T' key for Terminal Mode ---
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "t" || event.key === "T") {
+      document.body.classList.toggle("terminal-mode");
+    }
+  });
+  // --- MOBILE: Listen for 3 rapid taps for Terminal Mode ---
+  let tapCount = 0;
+  let tapTimer;
+  document.addEventListener("touchstart", function() {
+    tapCount++; 
+    clearTimeout(tapTimer); 
+    if (tapCount === 3) {
+      document.body.classList.toggle("terminal-mode");
+      tapCount = 0; 
+    }
+    tapTimer = setTimeout(function() {
+      tapCount = 0;
+    }, 500);
+  });
+</script>
+</body>
+</html>
