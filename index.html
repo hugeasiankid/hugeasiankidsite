@@ -25,5 +25,34 @@
 hugeasiankid.com
 </footer>
 
+
+<script>
+  // --- DESKTOP: Listen for the 'T' key ---
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "t" || event.key === "T") {
+      document.body.classList.toggle("terminal-mode");
+    }
+  });
+
+  // --- MOBILE: Listen for 3 rapid taps ---
+  let tapCount = 0;
+  let tapTimer;
+
+  document.addEventListener("touchstart", function() {
+    tapCount++; // Add 1 to the tap count
+    clearTimeout(tapTimer); // Reset the clock
+
+    // If they reach 3 taps, flip the switch!
+    if (tapCount === 3) {
+      document.body.classList.toggle("terminal-mode");
+      tapCount = 0; // Reset the count so they can turn it off later
+    }
+
+    // If they stop tapping for half a second (500 milliseconds), reset the count to 0
+    tapTimer = setTimeout(function() {
+      tapCount = 0;
+    }, 500);
+  });
+</script>
 </body>
 </html>
