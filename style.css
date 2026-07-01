@@ -89,3 +89,15 @@ footer {
   color: #ffffff; /* Turns white when they hover over it! */
   cursor: pointer; /* Turns the mouse into a clicking hand */
 }
+
+/* The Secret Terminal Design */
+body.terminal-mode {
+  background-color: #000000;
+  color: #00ff00; /* Neon hacker green */
+  font-family: 'Courier New', monospace; /* Typewriter computer font */
+}
+
+/* Make the images look like green computer monitors too */
+body.terminal-mode img {
+  filter: grayscale(100%) sepia(100%) hue-rotate(80deg) saturate(300%) brightness(80%);
+}
