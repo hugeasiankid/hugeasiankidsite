@@ -72,3 +72,20 @@ footer {
   margin-top: 40px;
   font-size: 15px;
 }
+
+/* Secret Easter Egg */
+.easter-egg {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  color: #000000; /* Matches your background exactly */
+  text-decoration: none;
+  font-size: 14px;
+  cursor: default; /* Keeps the normal arrow so it doesn't look like a link */
+  user-select: none; /* Stops people from highlighting it by accident */
+}
+
+.easter-egg:hover {
+  color: #ffffff; /* Turns white when they hover over it! */
+  cursor: pointer; /* Turns the mouse into a clicking hand */
+}
