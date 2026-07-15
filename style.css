@@ -1,122 +1,122 @@
-body {
-  background-color: #000000;
-  color: #ffffff;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 19px;
-  text-align: center;
-  margin: 0;
-  padding: 40px 20px;
-}
+body { 
+  background-color: #000000; 
+  color: #ffffff; 
+  font-family: "Times New Roman", Times, serif; 
+  font-size: 19px; 
+  text-align: center; 
+  margin: 0; 
+  padding: 40px 20px; 
+} 
 
-a {
-  color: #ffffff;
-  text-decoration: underline;
-}
+a { 
+  color: #ffffff; 
+  text-decoration: underline; 
+} 
 
-a:hover {
-  opacity: 0.6;
-}
+a:hover { 
+  opacity: 0.6; 
+} 
 
-h1 {
-  font-size: 28px;
-  font-weight: normal;
-  margin-bottom: 10px;
-}
+h1 { 
+  font-size: 28px; 
+  font-weight: normal; 
+  margin-bottom: 10px; 
+} 
 
-nav {
-  margin-bottom: 30px;
-}
+nav { 
+  margin-bottom: 30px; 
+} 
 
-nav a {
-  margin: 0 8px;
-}
+nav a { 
+  margin: 0 8px; 
+} 
 
-hr {
-  border: none;
-  border-top: 1px solid #ffffff;
-  max-width: 480px;
-  margin: 25px auto;
-}
+hr { 
+  border: none; 
+  border-top: 1px solid #ffffff; 
+  max-width: 480px; 
+  margin: 25px auto; 
+} 
 
-.entries {
-  max-width: 480px;
-  margin: 0 auto;
-  text-align: left;
-}
+.entries { 
+  max-width: 480px; 
+  margin: 0 auto; 
+  text-align: left; 
+} 
 
-details {
-  margin-bottom: 18px;
-}
+details { 
+  margin-bottom: 18px; 
+} 
 
-summary {
-  cursor: pointer;
-  text-align: left;
-}
+summary { 
+  cursor: pointer; 
+  text-align: left; 
+} 
 
-summary::marker {
-  color: #ffffff;
-}
+summary::marker { 
+  color: #ffffff; 
+} 
 
-details p {
-  margin: 8px 0 0 0;
-  white-space: pre-wrap;
-}
+details p { 
+  margin: 8px 0 0 0; 
+  white-space: pre-wrap; 
+} 
 
-details img {
-  max-width: 100%;
-  margin-top: 8px;
-  display: block;
-}
+details img { 
+  max-width: 100%; 
+  margin-top: 8px; 
+  display: block; 
+} 
 
-footer {
-  margin-top: 40px;
-  font-size: 15px;
-}
+footer { 
+  margin-top: 40px; 
+  font-size: 15px; 
+} 
 
-/* Secret Easter Egg */
-.easter-egg {
-  position: fixed;
-  top: 50%;
-  right: 15px;
-  color: #000000; /* Matches your background exactly */
-  text-decoration: none;
-  font-size: 14px;
-  cursor: default; /* Keeps the normal arrow so it doesn't look like a link */
-  user-select: none; /* Stops people from highlighting it by accident */
-}
+/* Secret Easter Egg */ 
+.easter-egg { 
+  position: fixed; 
+  top: 50%; 
+  right: 15px; 
+  color: #000000; /* Matches your background exactly */ 
+  text-decoration: none; 
+  font-size: 14px; 
+  cursor: default; /* Keeps the normal arrow so it doesn't look like a link */ 
+  user-select: none; /* Stops people from highlighting it by accident */ 
+} 
 
-.easter-egg:hover {
-  color: #ffffff; /* Turns white when they hover over it! */
-  cursor: pointer; /* Turns the mouse into a clicking hand */
-}
+.easter-egg:hover { 
+  color: #ffffff; /* Turns white when they hover over it! */ 
+  cursor: pointer; /* Turns the mouse into a clicking hand */ 
+} 
 
-/* The Secret Terminal Design */
-body.terminal-mode {
-  background-color: #000000;
-  color: #00ff00; /* Neon hacker green */
-  font-family: 'Courier New', monospace; /* Typewriter computer font */
-}
+/* The Secret Terminal Design */ 
+body.terminal-mode { 
+  background-color: #000000; 
+  color: #00ff00; /* Neon hacker green */ 
+  font-family: 'Courier New', monospace; /* Typewriter computer font */ 
+} 
 
-/* Make the images look like green computer monitors too */
-body.terminal-mode img {
-  filter: grayscale(100%) sepia(100%) hue-rotate(80deg) saturate(300%) brightness(80%);
-}
+/* Make the images look like green computer monitors too */ 
+body.terminal-mode img { 
+  filter: grayscale(100%) sepia(100%) hue-rotate(80deg) saturate(300%) brightness(80%); 
+} 
 
-/* Music Section */
-.now-playing {
-  text-align: center;
-  margin-top: 40px;
-}
+/* Music Section */ 
+.now-playing { 
+  text-align: center; 
+  margin-top: 40px; 
+} 
 
-.now-playing img {
-  max-width: 250px; /* Keeps the album cover from being too huge */
-  border-radius: 5px; /* Gives the corners a smooth look */
-}
+.now-playing img { 
+  max-width: 250px; /* Keeps the album cover from being too huge */ 
+  border-radius: 5px; /* Gives the corners a smooth look */ 
+} 
 
-.now-playing .caption {
-  display: block;
-  margin-top: 10px;
-  font-size: 16px;
-  font-style: italic; /* Makes the "listenin" text italicized */
-  color: #cccccc; /* Fades the text slightly */
+.now-playing .caption { 
+  display: block; 
+  margin-top: 10px; 
+  font-size: 16px; 
+  font-style: italic; /* Makes the "listenin" text italicized */ 
+  color: #cccccc; /* Fades the text slightly */ 
 }
