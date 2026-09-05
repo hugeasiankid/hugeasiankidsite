@@ -39,8 +39,8 @@ hugeasiankid.com
   const albumContainer = document.getElementById("dynamic-album");
   const albumId = albumContainer.getAttribute("data-album-id").trim(); // Cleans up accidental spaces
 
-  // Upgraded to search the Singapore store to prevent the red "album not found" error!
-  fetch(`https://itunes.apple.com/lookup?id=${albumId}&entity=album&country=sg`)
+  // Set to search the US store so Songlink can properly find Spotify/YouTube apps
+  fetch(`https://itunes.apple.com/lookup?id=${albumId}&entity=album&country=us`)
     .then(response => response.json())
     .then(data => {
       if (data.results.length > 0) {
@@ -49,7 +49,7 @@ hugeasiankid.com
         // Upgrades the tiny image to a crystal-clear 1000x1000 resolution
         const highResCover = album.artworkUrl100.replace('100x100bb', '1000x1000bb');
         
-        // NEW: Universal link fix! Uses the clean Apple URL instead of just the ID to avoid region errors.
+        // Universal link setup
         const cleanAppleUrl = album.collectionViewUrl.split('?')[0];
         const musicLink = `https://song.link/${cleanAppleUrl}`;
 
