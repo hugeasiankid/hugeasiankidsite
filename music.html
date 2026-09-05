@@ -49,8 +49,9 @@ hugeasiankid.com
         // Upgrades the tiny image to a crystal-clear 1000x1000 resolution
         const highResCover = album.artworkUrl100.replace('100x100bb', '1000x1000bb');
         
-        // NEW: Creates a Universal link so visitors can choose their own music app!
-        const musicLink = `https://song.link/i/${albumId}`;
+        // NEW: Universal link fix! Uses the clean Apple URL instead of just the ID to avoid region errors.
+        const cleanAppleUrl = album.collectionViewUrl.split('?')[0];
+        const musicLink = `https://song.link/${cleanAppleUrl}`;
 
         albumContainer.innerHTML = `
           <a href="${musicLink}" target="_blank">
