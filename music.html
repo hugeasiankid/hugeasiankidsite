@@ -22,8 +22,7 @@
 
 <div class="now-playing">
   
-  <div id="dynamic-album" data-album-id="1533513361
-    ">
+  <div id="dynamic-album" data-album-id="1533513361">
     <span style="color: #555555; font-size: 14px;">loading album...</span>
   </div>
   
@@ -38,10 +37,10 @@ hugeasiankid.com
 <script>
   // --- THE FOOLPROOF ROBOT (Searches by exact ID) ---
   const albumContainer = document.getElementById("dynamic-album");
-  const albumId = albumContainer.getAttribute("data-album-id");
+  const albumId = albumContainer.getAttribute("data-album-id").trim(); // Cleans up accidental spaces
 
-  // This upgraded fetch uses "lookup?id=" instead of "search?term="
-  fetch(`https://itunes.apple.com/lookup?id=${albumId}&entity=album`)
+  // Upgraded to search the Singapore store to prevent the red "album not found" error!
+  fetch(`https://itunes.apple.com/lookup?id=${albumId}&entity=album&country=sg`)
     .then(response => response.json())
     .then(data => {
       if (data.results.length > 0) {
@@ -49,7 +48,10 @@ hugeasiankid.com
         
         // Upgrades the tiny image to a crystal-clear 1000x1000 resolution
         const highResCover = album.artworkUrl100.replace('100x100bb', '1000x1000bb');
-        const musicLink = album.collectionViewUrl;
+        
+        // NEW: Automatically creates a YouTube Music link using the artist and album name!
+        const searchQuery = encodeURIComponent(album.artistName + " " + album.collectionName);
+        const musicLink = `https://music.youtube.com/search?q=${searchQuery}`;
 
         albumContainer.innerHTML = `
           <a href="${musicLink}" target="_blank">
