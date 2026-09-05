@@ -13,13 +13,13 @@
     position: fixed; 
     top: 0; left: 0; 
     width: 100%; height: 100%; 
-    background-color: rgba(0, 0, 0, 0.85); /* Dark background overlay */
+    background-color: rgba(0, 0, 0, 0.85); 
     justify-content: center; 
     align-items: center; 
     z-index: 1000;
   }
   .modal-content {
-    background-color: #1a1a1a; /* Dark mode box */
+    background-color: #1a1a1a; 
     padding: 30px; 
     border-radius: 12px; 
     text-align: center; 
@@ -92,6 +92,7 @@
       <a id="link-spotify" href="#" target="_blank">Spotify</a>
       <a id="link-youtube" href="#" target="_blank">YouTube Music</a>
       <a id="link-tidal" href="#" target="_blank">Tidal</a>
+      <a id="link-qobuz" href="#" target="_blank">Qobuz</a>
     </div>
   </div>
 </div>
@@ -102,31 +103,46 @@ hugeasiankid.com
 </footer>
 
 <script>
-  // --- THE FOOLPROOF ROBOT ---
+  // --- THE FOOLPROOF ROBOT (API Version) ---
   const albumContainer = document.getElementById("dynamic-album");
   const albumId = albumContainer.getAttribute("data-album-id").trim(); 
   
   const modal = document.getElementById("music-modal");
   const closeModal = document.getElementById("close-modal");
 
+  // 1. Fetch from Apple to get the Cover Art
   fetch(`https://itunes.apple.com/lookup?id=${albumId}&entity=album&country=us`)
     .then(response => response.json())
     .then(data => {
       if (data.results.length > 0) {
         const album = data.results[0];
         
-        // Image setup
         const highResCover = album.artworkUrl100.replace('100x100bb', '1000x1000bb');
-        
-        // Generate smart search links for exactly the 4 apps you want
+        const cleanAppleUrl = album.collectionViewUrl.split('?')[0];
         const searchQuery = encodeURIComponent(album.artistName + " " + album.collectionName);
         
-        document.getElementById("link-apple").href = album.collectionViewUrl;
+        // DEFAULT FALLBACKS: Set buttons to search mode immediately just in case
+        document.getElementById("link-apple").href = cleanAppleUrl;
         document.getElementById("link-spotify").href = `https://open.spotify.com/search/${searchQuery}`;
         document.getElementById("link-youtube").href = `https://music.youtube.com/search?q=${searchQuery}`;
         document.getElementById("link-tidal").href = `https://listen.tidal.com/search?q=${searchQuery}`;
+        document.getElementById("link-qobuz").href = `https://www.qobuz.com/us-en/search?q=${searchQuery}`;
 
-        // Instead of linking to Songlink, clicking the cover opens the menu
+        // 2. Fetch direct link translations from the invisible Songlink API
+        fetch(`https://api.song.link/v1-alpha.1/links?url=${encodeURIComponent(cleanAppleUrl)}`)
+          .then(res => res.json())
+          .then(songlinkData => {
+            const platforms = songlinkData.linksByPlatform;
+            
+            // MAGIC: If a direct link exists, silently overwrite the search link!
+            if (platforms.spotify) document.getElementById("link-spotify").href = platforms.spotify.url;
+            if (platforms.youtubeMusic) document.getElementById("link-youtube").href = platforms.youtubeMusic.url;
+            if (platforms.tidal) document.getElementById("link-tidal").href = platforms.tidal.url;
+            if (platforms.qobuz) document.getElementById("link-qobuz").href = platforms.qobuz.url;
+          })
+          .catch(err => console.log("Direct links not found, using search fallbacks."));
+
+        // Load the image and attach the pop-up click event
         albumContainer.innerHTML = `
           <img src="${highResCover}" alt="album cover" style="cursor: pointer;" id="cover-trigger">
         `;
