@@ -49,9 +49,8 @@ hugeasiankid.com
         // Upgrades the tiny image to a crystal-clear 1000x1000 resolution
         const highResCover = album.artworkUrl100.replace('100x100bb', '1000x1000bb');
         
-        // NEW: Automatically creates a YouTube Music link using the artist and album name!
-        const searchQuery = encodeURIComponent(album.artistName + " " + album.collectionName);
-        const musicLink = `https://music.youtube.com/search?q=${searchQuery}`;
+        // NEW: Creates a Universal link so visitors can choose their own music app!
+        const musicLink = `https://song.link/i/${albumId}`;
 
         albumContainer.innerHTML = `
           <a href="${musicLink}" target="_blank">
