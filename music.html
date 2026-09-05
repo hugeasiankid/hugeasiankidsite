@@ -6,6 +6,59 @@
 <meta name="robots" content="noindex, nofollow">
 <title>hugeasiankid - music</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* --- CUSTOM POP-UP MENU STYLES --- */
+  .modal {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background-color: rgba(0, 0, 0, 0.85); /* Dark background overlay */
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000;
+  }
+  .modal-content {
+    background-color: #1a1a1a; /* Dark mode box */
+    padding: 30px; 
+    border-radius: 12px; 
+    text-align: center; 
+    border: 1px solid #333;
+    font-family: monospace;
+    width: 250px;
+  }
+  .modal-content h3 {
+    color: #fff;
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  .app-links a {
+    display: block; 
+    color: #cccccc; 
+    text-decoration: none; 
+    padding: 12px; 
+    margin: 8px 0; 
+    border: 1px solid #444; 
+    border-radius: 6px; 
+    transition: 0.2s;
+  }
+  .app-links a:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  .close-btn {
+    color: #888; 
+    float: right; 
+    cursor: pointer; 
+    font-size: 20px;
+    margin-top: -20px;
+    margin-right: -10px;
+  }
+  .close-btn:hover {
+    color: #fff;
+  }
+</style>
 </head>
 <body>
 
@@ -22,11 +75,25 @@
 
 <div class="now-playing">
   
-  <div id="dynamic-album" data-album-id="1440815358">
+  <div id="dynamic-album" data-album-id="1440885112">
     <span style="color: #555555; font-size: 14px;">loading album...</span>
   </div>
   
   <span class="caption">listenin</span>
+</div>
+
+<!-- THE HIDDEN POP-UP MENU -->
+<div id="music-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="close-modal">&times;</span>
+    <h3>listen on...</h3>
+    <div class="app-links">
+      <a id="link-apple" href="#" target="_blank">Apple Music</a>
+      <a id="link-spotify" href="#" target="_blank">Spotify</a>
+      <a id="link-youtube" href="#" target="_blank">YouTube Music</a>
+      <a id="link-tidal" href="#" target="_blank">Tidal</a>
+    </div>
+  </div>
 </div>
 
 <a href="https://music.youtube.com/playlist?list=OLAK5uy_nA_FZrkLYWSgody_98wN-K42OaR2xmVcU" target="_blank" class="easter-egg">click me!</a>
@@ -35,33 +102,54 @@ hugeasiankid.com
 </footer>
 
 <script>
-  // --- THE FOOLPROOF ROBOT (Searches by exact ID) ---
+  // --- THE FOOLPROOF ROBOT ---
   const albumContainer = document.getElementById("dynamic-album");
-  const albumId = albumContainer.getAttribute("data-album-id").trim(); // Cleans up accidental spaces
+  const albumId = albumContainer.getAttribute("data-album-id").trim(); 
+  
+  const modal = document.getElementById("music-modal");
+  const closeModal = document.getElementById("close-modal");
 
-  // Set to search the US store so Songlink can properly find Spotify/YouTube apps
   fetch(`https://itunes.apple.com/lookup?id=${albumId}&entity=album&country=us`)
     .then(response => response.json())
     .then(data => {
       if (data.results.length > 0) {
         const album = data.results[0];
         
-        // Upgrades the tiny image to a crystal-clear 1000x1000 resolution
+        // Image setup
         const highResCover = album.artworkUrl100.replace('100x100bb', '1000x1000bb');
         
-        // Universal link setup
-        const cleanAppleUrl = album.collectionViewUrl.split('?')[0];
-        const musicLink = `https://song.link/${cleanAppleUrl}`;
+        // Generate smart search links for exactly the 4 apps you want
+        const searchQuery = encodeURIComponent(album.artistName + " " + album.collectionName);
+        
+        document.getElementById("link-apple").href = album.collectionViewUrl;
+        document.getElementById("link-spotify").href = `https://open.spotify.com/search/${searchQuery}`;
+        document.getElementById("link-youtube").href = `https://music.youtube.com/search?q=${searchQuery}`;
+        document.getElementById("link-tidal").href = `https://listen.tidal.com/search?q=${searchQuery}`;
 
+        // Instead of linking to Songlink, clicking the cover opens the menu
         albumContainer.innerHTML = `
-          <a href="${musicLink}" target="_blank">
-            <img src="${highResCover}" alt="album cover">
-          </a>
+          <img src="${highResCover}" alt="album cover" style="cursor: pointer;" id="cover-trigger">
         `;
+
+        document.getElementById("cover-trigger").onclick = function() {
+          modal.style.display = "flex";
+        }
       } else {
         albumContainer.innerHTML = `<span style="color: #ff5555;">album not found! check the ID number.</span>`;
       }
     });
+
+  // Close the pop-up when the X is clicked
+  closeModal.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // Close the pop-up if the user clicks anywhere outside the dark box
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 
   // --- DESKTOP: Listen for the 'T' key for Terminal Mode ---
   document.addEventListener("keydown", function(event) {
